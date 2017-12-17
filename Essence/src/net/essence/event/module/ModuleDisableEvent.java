@@ -5,6 +5,14 @@ import net.essence.module.Module;
 
 public class ModuleDisableEvent extends PremadeEvent{
 
+	/**
+	 * @author ComminQ_Q
+	 * 			
+	 * 			Event active when a module is being disabled
+	 * 			// TODO You can disable Module IG
+	 * 
+	 */
+	
 	private Module module;
 
 	public ModuleDisableEvent(Module module){

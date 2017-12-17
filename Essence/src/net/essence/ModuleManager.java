@@ -88,7 +88,9 @@ public class ModuleManager {
 			JarEntry entry = jar.getJarEntry("module.yml");
 
 			if (entry == null) {
+				jar.close();
 				throw new InvalidModuleFormatException("Module doesn't contains description file");
+				
 			}
 
 			BufferedReader reader = new BufferedReader(new InputStreamReader(jar.getInputStream(entry)));
@@ -106,6 +108,7 @@ public class ModuleManager {
 			this.modules.add(module);
 			module.Load();
 			System.out.println("Loading " + module.getDescription().getName() + "...");
+			jar.close();
 		} catch (IOException e) {
 			if (Main.DEBUG) {
 				System.out.println("" + f.getName() + "is not a jarfile, ignoring...");

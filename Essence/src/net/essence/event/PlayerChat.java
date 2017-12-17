@@ -6,6 +6,8 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
 
 import net.essence.ChatFormat;
+import net.essence.player.Essence;
+import net.essence.player.EssencePlayer;
 
 public class PlayerChat implements Listener{
 
@@ -13,7 +15,9 @@ public class PlayerChat implements Listener{
 	public void onChat(AsyncPlayerChatEvent e){
 		String format = ChatFormat.getChatformat().getFormat();
 		
-		e.setFormat( format.replaceAll("%player%", e.getPlayer().getName()).replaceAll("%rank%", "Joueur") + "%2$s");
+		EssencePlayer player = Essence.getPlayer(e.getPlayer());
+		
+		e.setFormat( format.replaceAll("%player%", e.getPlayer().getName()).replaceAll("%rankPrefix%", player.getRank().getPrefix()) + "%2$s" );
 		
 		
 	}

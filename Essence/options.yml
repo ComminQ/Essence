@@ -11,8 +11,16 @@ module_active: true
 
 #   Here's the list of all the actual placeholder:
 #
-#   - %rank% for the rank of the player
+#   - %rankPrefix% for the player's rank (prefix)
+#   - %rankSuffix% for the player's rank (suffix)
 #   - %player% for the player official name
 #
 
-chat_format: "< %rank% %player% > "
+chat_format: "%rankPrefix% %player% : "
+
+#                    #
+# Permission Section #
+#                    #
+
+error_permission_message: '&cYou do not have the permission to access to this command.'
+error_player_exist: '&cThis players is not connected, or is not a player.'

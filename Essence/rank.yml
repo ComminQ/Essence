@@ -1,0 +1,21 @@
+#
+#
+#   Essence Rank
+#
+#
+
+
+ranks:
+ admin:
+  name: 'Admin'
+  prefix: '&7[&4Admin&7]' 
+  suffix: ''
+  default: false
+  permissions:
+ 
+ player:
+  name: 'Player'
+  prefix: '§8'
+  suffix: ''
+  default: true
+  permissions:

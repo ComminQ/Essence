@@ -6,6 +6,7 @@ import java.util.List;
 
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import org.bukkit.plugin.Plugin;
 
 import net.essence.Main;
 import net.essence.module.Module;
@@ -70,5 +71,6 @@ public class ModuleInfoCmd extends EssenceCmd{
 		return retur;
 		
 	}
+
 
 }

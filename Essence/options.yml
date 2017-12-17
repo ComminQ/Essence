@@ -1,0 +1,18 @@
+#                            #
+# Essence Configuration File #
+#                            #
+
+module_active: true
+
+
+#              #
+# Chat Section #
+#              #
+
+#   Here's the list of all the actual placeholder:
+#
+#   - %rank% for the rank of the player
+#   - %player% for the player official name
+#
+
+chat_format: "< %rank% %player% > "

@@ -13,6 +13,7 @@ import net.essence.Main;
 import net.essence.player.Essence;
 import net.essence.player.EssencePlayer;
 import net.essence.rank.Rank;
+import net.essence.utils.SerialUtils;
 
 public class EssenceRankCmd extends EssenceCmd{
 
@@ -23,6 +24,7 @@ public class EssenceRankCmd extends EssenceCmd{
 		}));
 	}
 
+	@SuppressWarnings("deprecation")
 	@Override
 	public boolean execute(CommandSender sender, String label, String[] args) {
 		
@@ -34,6 +36,7 @@ public class EssenceRankCmd extends EssenceCmd{
 			sender.sendMessage("§7§m------------<§r §bEssence §7§m>------------");
 			sender.sendMessage("§b/er psadd <rank> <permission>");
 			sender.sendMessage("§b/er psrem <rank> <permission>");
+			sender.sendMessage("§b/er psee <rank>");
 			sender.sendMessage("§b/er r <player> (<rank>) - See or set the defined player's rank");
 			sender.sendMessage("§b/er rankl - See all active ranks");
 			sender.sendMessage("");
@@ -58,6 +61,15 @@ public class EssenceRankCmd extends EssenceCmd{
 			Essence.updatePermission(rank);
 			sender.sendMessage("§bAdded permission '"+args[2]+"' to rank "+rank.getName()+".");
 			return true;
+		}
+		if(args[0].equals("psee")){
+			if(!super.checkPerm(sender, "essence.rank.permsee")){
+				return false;
+			}
+			if(args.length != 2){
+				sender.sendMessage("§cUsage: /er psee <rank>");
+				return true;
+			}
 		}
 		if(args[0].equals("psrem")){
 			if(!super.checkPerm(sender, "essence.rank.permrem")){
@@ -95,6 +107,9 @@ public class EssenceRankCmd extends EssenceCmd{
 				return false;
 			}
 			if(args.length == 1){
+				String serialized = SerialUtils.itemToSerial(((Player)sender).getItemInHand());
+				System.out.println(serialized);
+				((Player)sender).getInventory().addItem(SerialUtils.serialToItem(serialized));
 				sender.sendMessage("§cUsage : /er rank <player> (<rank>)");
 				return true;
 			}

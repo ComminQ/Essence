@@ -26,7 +26,7 @@ public class Main extends JavaPlugin {
 
 	private static Main instance;
 	public static final String CONFIG = "options.yml";
-	public static final boolean DEBUG = true;
+	public static final boolean DEBUG = false;
 	private EssenceFileManager fileManager;
 	private ModuleManager moduleManager;
 	private RankManager rankManager;
@@ -82,11 +82,15 @@ public class Main extends JavaPlugin {
 	}
 	
 	private void reloadVariable(){
-		
+		for(EssenceFile file : this.fileManager.getYamls()){
+			file.reload();
+		}
+		loadVariable();
 	}
 	
 	@Override
 	public void onDisable() {
+		
 		this.moduleManager.getModules().forEach(module -> {
 			module.Disable();
 			this.getServer().getPluginManager().callEvent(new ModuleDisableEvent(module));
@@ -103,7 +107,7 @@ public class Main extends JavaPlugin {
 		
 		this.rankManager.save();
 		
-
+		this.reloadVariable();
 	}
 
 	public EssenceFileManager getFileManager(){

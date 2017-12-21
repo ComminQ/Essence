@@ -33,17 +33,17 @@ public class EssenceRankCmd extends EssenceCmd{
 				return false;
 			}
 			
-			sender.sendMessage("§7§m------------<§r §bEssence §7§m>------------");
+			sender.sendMessage("§7§m---------------<§r §bEssence §7§m>---------------");
 			sender.sendMessage("§b/er rank create <name>");
 			sender.sendMessage("§b/er rank remove <rank>");
 			sender.sendMessage("§b/er rank prefix <rank> <value>");
 			sender.sendMessage("§b/er rank suffix <rank> <value>");
+			sender.sendMessage("§b/er rank <player> (<rank>) - See or set the defined player's rank");
 			sender.sendMessage("§b/er psadd <rank> <permission>");
 			sender.sendMessage("§b/er psrem <rank> <permission>");
 			sender.sendMessage("§b/er psee <rank>");
-			sender.sendMessage("§b/er rank <player> (<rank>) - See or set the defined player's rank");
 			sender.sendMessage("§b/er rankl - See all active ranks");
-			sender.sendMessage("§7§m------------<§r §bEssence §7§m>------------");
+			sender.sendMessage("§7§m---------------<§r §bEssence §7§m>---------------");
 			
 			
 			return true;
@@ -223,22 +223,44 @@ public class EssenceRankCmd extends EssenceCmd{
 	@Override
 	public List<String> tabComplete(CommandSender sender, String alias, String[] args) {
 		List<String> ret = new ArrayList<>();
-		if(args.length == 2){
-			if(args[0].equals("r")){
+		if(Main.DEBUG){
+			Arrays.asList(args).forEach(string->{
+				System.out.println(string);
+			});
+			System.out.println(args.length);
+		}
+		
+		if(args.length-1 == 1){
+			if(args[0].equals("rank")){
+				ret.add("create");
+				ret.add("remove");
+				ret.add("prefix");
+				ret.add("suffix");
 				Bukkit.getOnlinePlayers().forEach(p->{
 					ret.add(p.getName());
-					});
-				return ret;
-			}
-		}
-		if(args.length == 3){
-			if(args[0].equals("r")){
-				Main.getInstance().getRankManager().getRanks().forEach(r->{
-					ret.add(r.getName());
 				});
 				return ret;
 			}
 		}
+		if(args.length-1 == 2){
+			if(args[0].equals("rank")){
+				if(args[1].equals("remove") || args[1].equals("prefix") || args[1].equals("suffix")){
+					Main.getInstance().getRankManager().getRanks().forEach(rank->{
+						ret.add(rank.getName());
+					});
+					return ret;
+				}
+				if(!args[1].equals("create")){
+					Bukkit.getOnlinePlayers().forEach(p->{
+						ret.add(p.getName());
+					});
+					return ret;
+				}
+				
+			}
+		}
+		
+		
 		
 		return ret;
 	}

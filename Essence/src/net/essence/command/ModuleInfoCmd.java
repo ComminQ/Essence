@@ -47,8 +47,9 @@ public class ModuleInfoCmd extends EssenceCmd{
 			}
 			StringBuilder sb = new StringBuilder();
 			for(String s : module.getDescription().getAuthors()){
-				sb.append(s);
+				sb.append(s+",");
 			}
+			sb.replace(sb.length()-1, sb.length(), "");
 			sender.sendMessage("§bModule §l"+module.getDescription().getName());
 			sender.sendMessage("§bVersion: "+module.getDescription().getVersion());
 			sender.sendMessage("§bAuthors: "+sb);

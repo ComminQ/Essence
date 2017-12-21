@@ -51,9 +51,12 @@ public class ModuleClassLoader extends URLClassLoader{
 	}
 	
 	private ModuleDescription asDescription(Map<String, String> data){
+		
+		String[] authors = data.get("Author").split("\\,");
+		
 		return new ModuleDescriptionBuilder(data.get("Name"))
 		.withVersion(data.get("Version"))
-		.withAuthor(data.get("Author")).build();
+		.withAuthor(authors).build();
 	}
 
 }

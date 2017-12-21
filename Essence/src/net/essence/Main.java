@@ -69,14 +69,22 @@ public class Main extends JavaPlugin {
 		
 		Essence.createPlayerDataFoler();
 		
+		this.loadVariable();
+		
+	}
+
+	private void loadVariable(){
 		EssenceCmd.noPerm = ChatColor.translateAlternateColorCodes('&', this.fileManager.getConfigFile(CONFIG).getString("error_permission_message"));
 		EssenceCmd.noPlayer = ChatColor.translateAlternateColorCodes('&', this.fileManager.getConfigFile(CONFIG).getString("error_player_exist"));
 		
 		joinMessage = ChatColor.translateAlternateColorCodes('&', this.fileManager.getConfigFile(CONFIG).getString("join_message"));
 		leftMessage = ChatColor.translateAlternateColorCodes('&', this.fileManager.getConfigFile(CONFIG).getString("leave_message"));
+	}
+	
+	private void reloadVariable(){
 		
 	}
-
+	
 	@Override
 	public void onDisable() {
 		this.moduleManager.getModules().forEach(module -> {

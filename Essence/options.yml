@@ -18,6 +18,16 @@ module_active: true
 
 chat_format: "%rankPrefix% %player% : "
 
+
+#
+# if you don't want to have join message, just put "null"
+# if you don't want that Essence
+# modify connection message, just put "none"
+#
+
+join_message: "&e%player% joined."
+leave_message: "&e%player% left."
+
 #                    #
 # Permission Section #
 #                    #

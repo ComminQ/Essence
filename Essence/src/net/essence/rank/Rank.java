@@ -10,6 +10,7 @@ public class Rank {
 	private String prefix;
 	private String suffix;
 	private String dataName;
+	public boolean deleted;
 	public int ID;
 	
 	public Rank(int ID){
@@ -17,6 +18,11 @@ public class Rank {
 		this.ID = ID;
 	}
 
+	
+	public Rank(){
+		this.setPermissions(new ArrayList<>());
+		this.ID = 0;
+	}
 	
 	public String getPrefix() {
 		return prefix;

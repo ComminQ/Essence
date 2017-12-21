@@ -26,11 +26,14 @@ public class Main extends JavaPlugin {
 
 	private static Main instance;
 	public static final String CONFIG = "options.yml";
-	public static final boolean DEBUG = false;
+	public static final boolean DEBUG = true;
 	private EssenceFileManager fileManager;
 	private ModuleManager moduleManager;
 	private RankManager rankManager;
 
+	public String joinMessage;
+	public String leftMessage;
+	
 	@Override
 	public void onEnable() {
 		instance = this;
@@ -68,6 +71,9 @@ public class Main extends JavaPlugin {
 		
 		EssenceCmd.noPerm = ChatColor.translateAlternateColorCodes('&', this.fileManager.getConfigFile(CONFIG).getString("error_permission_message"));
 		EssenceCmd.noPlayer = ChatColor.translateAlternateColorCodes('&', this.fileManager.getConfigFile(CONFIG).getString("error_player_exist"));
+		
+		joinMessage = ChatColor.translateAlternateColorCodes('&', this.fileManager.getConfigFile(CONFIG).getString("join_message"));
+		leftMessage = ChatColor.translateAlternateColorCodes('&', this.fileManager.getConfigFile(CONFIG).getString("leave_message"));
 		
 	}
 

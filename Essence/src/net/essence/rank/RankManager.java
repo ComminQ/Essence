@@ -21,10 +21,9 @@ public class RankManager {
 	
 	public Rank getRankByName(String string){
 		for(Rank rank : this.ranks){
-			if(rank.getName().contains(string)) return rank;
+			if(rank.getName().contains(string) && !rank.deleted) return rank;
 		}
 		return null;
-		
 	}
 	
 	public void save(){
@@ -32,22 +31,41 @@ public class RankManager {
 		EssenceFile rankYML = Main.getInstance().getFileManager().getConfigFile("rank.yml");
 		
 		for(Rank rank : this.ranks){
-			ConfigurationSection sec = rankYML.getConfigurationSection("ranks."+rank.getDataName());
-			for(String data : sec.getStringList("permissions")){
-				System.out.println(data + " ! " + rank.getPermissions());
-				if(!rank.getPermissions().contains("data")){
-					sec.getStringList("permissions").remove(data);
+			
+			ConfigurationSection sec1 = rankYML.getConfigurationSection("ranks."+rank.getDataName());
+			if(sec1 == null){
+				rankYML.createSection("ranks."+rank.getDataName());
+				ConfigurationSection sec2 = rankYML.getConfigurationSection("ranks."+rank.getDataName());
+				sec2.createSection("name");
+				sec2.createSection("prefix");
+				sec2.createSection("suffix");
+				sec2.createSection("default");
+				sec2.createSection("permissions");
+				
+				sec1 = rankYML.getConfigurationSection("ranks."+rank.getDataName());
+				sec1.set("name", rank.getName());
+				sec1.set("prefix", rank.getPrefix());
+				sec1.set("suffix", rank.getSuffix());
+				sec1.set("default", false);
+				sec1.set("permissions", rank.getPermissions());
+				
+			}else{
+				if(rank.deleted){
+					rankYML.set("ranks."+rank.getDataName(), null);
+				}else{
+					sec1.set("permissions", rank.getPermissions());
+					sec1.set("prefix", rank.getPrefix());
+					sec1.set("suffix", rank.getSuffix());
 				}
+				
 			}
-			for(String data : rank.getPermissions()){
-				System.out.println(data +" ! "+sec.getStringList("permissions"));
-				if(!sec.getStringList("permissions").contains(data)){
-					sec.getStringList("permissions").add(data);
-				}
-			}
+			
+			
+			
+			
 		}
 		
-		rankYML.save();
+		rankYML.save().reload();
 	}
 	
 	private void load(){
@@ -57,6 +75,7 @@ public class RankManager {
 		Set<String> all = rankYML.getConfigurationSection("ranks").getKeys(false);
 		int n = all.size();
 		for(String data : all){
+			if(rankYML.get("ranks."+data+".name") == null) continue;
 			Rank rank = new Rank(n);
 			
 			rank.setName(ChatColor.translateAlternateColorCodes('&', rankYML.getString("ranks."+data+".name")));

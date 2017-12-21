@@ -55,6 +55,7 @@ public class EssencePlayer {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+		cache.remove(player);
 		
 	}
 	
